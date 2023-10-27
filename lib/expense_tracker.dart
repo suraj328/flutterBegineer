@@ -38,6 +38,8 @@ class _ExpensesState extends State<Expenses> {
         // take all entire space when its true
         // else take only wiget space size or set size
         isScrollControlled: true,
+        // do not take space in device features like camera
+        useSafeArea: true,
         context: context,
         builder: (ctx) => NewExpenses(
               onAddExpense: _addExpenses,
@@ -78,6 +80,12 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    // finding screen size for responsive
+    // finding screen width
+    final width = MediaQuery.of(context).size.width;
+    // finding screen height
+    final height = MediaQuery.of(context).size.height;
+
     Widget mainContent =
         const Center(child: Text("No Expenses found.Start adding some"));
     if (_registeredExpenses.isNotEmpty) {
@@ -91,21 +99,37 @@ class _ExpensesState extends State<Expenses> {
           icon: const Icon(Icons.add),
         )
       ]),
-      body: Column(
-        children: [
-          Chart(expenses: _registeredExpenses),
-          Expanded(
-            // expanseseList widget without snackbar
-            // child: ExpensesList(
-            //     expenses: _registeredExpenses,
-            //     onRemoveExpense: _removeExpenses),
-            // ----------------------------------
+      body: width < 600
+          ? Column(
+              children: [
+                Chart(expenses: _registeredExpenses),
+                Expanded(
+                  // expanseseList widget without snackbar
+                  // child: ExpensesList(
+                  //     expenses: _registeredExpenses,
+                  //     onRemoveExpense: _removeExpenses),
+                  // ----------------------------------
 
-            //expanses list with conditonal rendering
-            child: mainContent,
-          )
-        ],
-      ),
+                  //expanses list with conditonal rendering
+                  child: mainContent,
+                )
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(child: Chart(expenses: _registeredExpenses)),
+                Expanded(
+                  // expanseseList widget without snackbar
+                  // child: ExpensesList(
+                  //     expenses: _registeredExpenses,
+                  //     onRemoveExpense: _removeExpenses),
+                  // ----------------------------------
+
+                  //expanses list with conditonal rendering
+                  child: mainContent,
+                )
+              ],
+            ),
     );
   }
 }

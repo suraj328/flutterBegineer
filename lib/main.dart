@@ -1,5 +1,6 @@
 import 'package:expense_tracker/expense_tracker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // example of theming
 // by configuring theme you can apply multiple widget like elevated button with same choosen color
@@ -16,6 +17,10 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
+  // enable potrait mode well screen rotation
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+  //     .then((fn) {
   runApp(MaterialApp(
     // dark theme
     darkTheme: ThemeData.dark().copyWith(
@@ -72,4 +77,5 @@ void main() {
     // default its in system
     themeMode: ThemeMode.system,
   ));
+  // });
 }
