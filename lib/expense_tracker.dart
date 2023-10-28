@@ -84,7 +84,7 @@ class _ExpensesState extends State<Expenses> {
     // finding screen width
     final width = MediaQuery.of(context).size.width;
     // finding screen height
-    final height = MediaQuery.of(context).size.height;
+    // final height = MediaQuery.of(context).size.height;
 
     Widget mainContent =
         const Center(child: Text("No Expenses found.Start adding some"));
@@ -93,12 +93,16 @@ class _ExpensesState extends State<Expenses> {
           expenses: _registeredExpenses, onRemoveExpense: _removeExpenses);
     }
     return Scaffold(
-      appBar: AppBar(title: const Text("Flutter Expense Tracker"), actions: [
-        IconButton(
-          onPressed: _openAddExpenseOverlay,
-          icon: const Icon(Icons.add),
-        )
-      ]),
+      appBar: AppBar(
+          title: const Text("Flutter Expense Tracker"),
+          // working with differ devices its automatically true or false
+          // centerTitle: false,
+          actions: [
+            IconButton(
+              onPressed: _openAddExpenseOverlay,
+              icon: const Icon(Icons.add),
+            )
+          ]),
       body: width < 600
           ? Column(
               children: [
