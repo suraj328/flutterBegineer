@@ -4,7 +4,7 @@ import 'package:meal_app/widget/meal_item_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealItem extends StatelessWidget {
-  const MealItem({super.key, required this.meal});
+  const MealItem({super.key, required this.meal, required this.onSelectMeal});
 
   String get complexityText {
     return meal.complexity.name[0].toUpperCase() +
@@ -17,6 +17,8 @@ class MealItem extends StatelessWidget {
   }
 
   final Meal meal;
+
+  final void Function(Meal meal) onSelectMeal;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -30,7 +32,9 @@ class MealItem extends StatelessWidget {
       // give a shadow
       elevation: 2,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          onSelectMeal(meal);
+        },
         // the Stack widget is used to overlay multiple children widgets on top of each other.
         // It allows you to create complex layouts by positioning widgets at specific coordinates within the stack.
         // Each child in a Stack can be precisely positioned using the Positioned widget.
